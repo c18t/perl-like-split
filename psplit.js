@@ -14,9 +14,11 @@ String.prototype.psplit = function(sep, limit) {
 			if (sep == ' ') sep = /\s+/, clear = true;
 		}
 		while (--limit) {
-			if (!str || (b = str.search(sep)) == -1) break;
-			a.push(str.substring(0, (c = RegExp.lastMatch.length) ? b : 1));
-			str = str.substring(b + c || 1);
+			b = str.search(sep);
+			c = (c = str.match(sep)) ? c[0].length : 0;
+			if (!str || b == -1) break;
+			a.push(str.slice(0, c ? b : 1));
+			str = str.slice(b + c || 1);
 		}
 		if (str || !a.length || arg_limit < 0) a.push(str);
 		if (clear) for (var i = 0; i < a.length; i++) if (a[i] == '') a.splice(i, 1), i--;
